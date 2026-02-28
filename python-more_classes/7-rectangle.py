@@ -8,7 +8,6 @@ It allows changing the symbol used for string representation.
 class Rectangle:
     """Class that represents a rectangle with customizable print symbol."""
 
-    # Public class attributes
     number_of_instances = 0
     print_symbol = "#"
 
@@ -60,7 +59,7 @@ class Rectangle:
         """Returns string representation using print_symbol."""
         if self.__width == 0 or self.__height == 0:
             return ""
-        # print_symbol-u sətirə çevirib (istənilən tip ola bilər) istifadə edirik
+        # Convert symbol to string to avoid type errors
         symbol = str(self.print_symbol)
         rect_lines = [symbol * self.__width for _ in range(self.__height)]
         return "\n".join(rect_lines)
