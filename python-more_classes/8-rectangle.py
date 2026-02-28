@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """
-This module defines a Rectangle class based on 6-rectangle.py.
-It allows changing the symbol used for string representation.
+This module defines a Rectangle class based on 7-rectangle.py.
+It includes a static method to compare rectangles by area.
 """
 
 
 class Rectangle:
-    """Class that represents a rectangle with customizable print symbol."""
+    """Class that represents a rectangle with area comparison."""
 
     number_of_instances = 0
     print_symbol = "#"
@@ -55,11 +55,21 @@ class Rectangle:
             return 0
         return 2 * (self.__width + self.__height)
 
+    @staticmethod
+    def bigger_or_equal(rect_1, rect_2):
+        """Returns the biggest rectangle based on the area."""
+        if not isinstance(rect_1, Rectangle):
+            raise TypeError("rect_1 must be an instance of Rectangle")
+        if not isinstance(rect_2, Rectangle):
+            raise TypeError("rect_2 must be an instance of Rectangle")
+        if rect_1.area() >= rect_2.area():
+            return rect_1
+        return rect_2
+
     def __str__(self):
         """Returns string representation using print_symbol."""
         if self.__width == 0 or self.__height == 0:
             return ""
-        # Convert symbol to string to avoid type errors
         symbol = str(self.print_symbol)
         rect_lines = [symbol * self.__width for _ in range(self.__height)]
         return "\n".join(rect_lines)
