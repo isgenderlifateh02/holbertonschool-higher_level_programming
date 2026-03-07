@@ -2,7 +2,13 @@ The BaseGeometry class:
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 
-Valid integers:
+Checking area():
+>>> bg.area()
+Traceback (most recent call last):
+    ...
+Exception: area() is not implemented
+
+Checking integer_validator():
 >>> bg.integer_validator("my_int", 12)
 >>> bg.integer_validator("width", 89)
 
@@ -17,3 +23,8 @@ Less than or equal to 0:
 Traceback (most recent call last):
     ...
 ValueError: age must be greater than 0
+
+>>> bg.integer_validator("distance", -4)
+Traceback (most recent call last):
+    ...
+ValueError: distance must be greater than 0
