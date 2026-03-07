@@ -1,49 +1,63 @@
 #!/usr/bin/python3
-"""
-Module task_01_duck_typing
-Contains Shape, Circle, Rectangle and shape_info function.
-"""
+"""Module containing Shape class and its inheritances"""
 from abc import ABC, abstractmethod
-import math
+from math import pi
 
 
 class Shape(ABC):
-    """Abstract class Shape"""
+    """The Shape class"""
+
     @abstractmethod
     def area(self):
+        """Method for area"""
         pass
 
     @abstractmethod
     def perimeter(self):
+        """Method for perimeter"""
         pass
 
 
 class Circle(Shape):
-    """Circle class inheriting from Shape"""
+    """The Circle class inherited from Shape"""
+
     def __init__(self, radius):
-        self.radius = radius
+        """Initialization wih radius"""
+        self.radius = abs(radius)
 
     def area(self):
-        return math.pi * (self.radius ** 2)
+        """Returning duck area"""
+        return pi * self.radius ** 2
 
     def perimeter(self):
-        return 2 * math.pi * self.radius
+        """Returning perimeter area"""
+        return pi * self.radius * 2
 
 
 class Rectangle(Shape):
-    """Rectangle class inheriting from Shape"""
+    """The Rectangle class inherited from Shape"""
+
     def __init__(self, width, height):
+        """Initialization wih width and height"""
         self.width = width
         self.height = height
 
     def area(self):
+        """Returning duck area"""
         return self.width * self.height
 
     def perimeter(self):
+        """Returning perimeter area"""
         return 2 * (self.width + self.height)
 
 
-def shape_info(shape):
-    """Function that prints area and perimeter using Duck Typing"""
-    print("Area: {}".format(shape.area()))
-    print("Perimeter: {}".format(shape.perimeter()))
+def shape_info(obj):
+    """Function to give shape info"""
+
+    # Calculating the area and perimeter
+    area = obj.area()
+    perimeter = obj.perimeter()
+
+    # Printing the area and perimeter
+    print(f"Area: {area}")
+    print(f"Perimeter: {perimeter}")
