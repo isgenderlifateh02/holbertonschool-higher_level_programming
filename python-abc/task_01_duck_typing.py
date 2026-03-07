@@ -1,63 +1,49 @@
 #!/usr/bin/python3
 """
-This module defines the Shape abstract class and its subclasses
-Circle and Rectangle, demonstrating duck typing.
+Module task_01_duck_typing
+Contains Shape, Circle, Rectangle and shape_info function.
 """
 from abc import ABC, abstractmethod
 import math
 
 
 class Shape(ABC):
-    """Abstract base class for geometric shapes."""
-
+    """Abstract class Shape"""
     @abstractmethod
     def area(self):
-        """Calculates the area of the shape."""
         pass
 
     @abstractmethod
     def perimeter(self):
-        """Calculates the perimeter of the shape."""
         pass
 
 
 class Circle(Shape):
-    """Concrete class representing a Circle."""
-
+    """Circle class inheriting from Shape"""
     def __init__(self, radius):
-        """Initializes the circle with a radius."""
         self.radius = radius
 
     def area(self):
-        """Returns the area of the circle (pi * r^2)."""
         return math.pi * (self.radius ** 2)
 
     def perimeter(self):
-        """Returns the perimeter of the circle (2 * pi * r)."""
         return 2 * math.pi * self.radius
 
 
 class Rectangle(Shape):
-    """Concrete class representing a Rectangle."""
-
+    """Rectangle class inheriting from Shape"""
     def __init__(self, width, height):
-        """Initializes the rectangle with width and height."""
         self.width = width
         self.height = height
 
     def area(self):
-        """Returns the area of the rectangle (w * h)."""
         return self.width * self.height
 
     def perimeter(self):
-        """Returns the perimeter of the rectangle (2 * (w + h))."""
         return 2 * (self.width + self.height)
 
 
 def shape_info(shape):
-    """
-    Prints the area and perimeter of a shape.
-    Demonstrates duck typing: trusts the object has area and perimeter methods.
-    """
+    """Function that prints area and perimeter using Duck Typing"""
     print("Area: {}".format(shape.area()))
     print("Perimeter: {}".format(shape.perimeter()))
