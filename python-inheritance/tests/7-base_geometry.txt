@@ -12,31 +12,38 @@ Checking integer_validator():
 >>> bg.integer_validator("my_int", 12)
 >>> bg.integer_validator("width", 89)
 
-Not an integer (String):
->>> bg.integer_validator("name", "John")
+Testing integer_validator with "age":
+>>> bg.integer_validator("age", "20")
 Traceback (most recent call last):
     ...
-TypeError: name must be an integer
+TypeError: age must be an integer
 
-Not an integer (List):
->>> bg.integer_validator("my_list", [1, 2, 3])
+>>> bg.integer_validator("age", [20])
 Traceback (most recent call last):
     ...
-TypeError: my_list must be an integer
+TypeError: age must be an integer
 
-Not an integer (Float):
->>> bg.integer_validator("my_float", 8.9)
+>>> bg.integer_validator("age", 20.5)
 Traceback (most recent call last):
     ...
-TypeError: my_float must be an integer
+TypeError: age must be an integer
 
-Value is 0:
 >>> bg.integer_validator("age", 0)
 Traceback (most recent call last):
     ...
 ValueError: age must be greater than 0
 
-Value is negative:
+>>> bg.integer_validator("age", -5)
+Traceback (most recent call last):
+    ...
+ValueError: age must be greater than 0
+
+Other edge cases:
+>>> bg.integer_validator("name", "John")
+Traceback (most recent call last):
+    ...
+TypeError: name must be an integer
+
 >>> bg.integer_validator("distance", -4)
 Traceback (most recent call last):
     ...
