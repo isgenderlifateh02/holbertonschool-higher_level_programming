@@ -1,33 +1,35 @@
 #!/usr/bin/python3
 """
-This module contains a function to convert a list of dictionaries
-into a CSV file and vice versa.
+    Module containing functions that takes CSV and converts to JSON
 """
 import csv
+import json
 
 
-def write_data_to_csv(data, filename):
-    """
-    Writes a list of dictionaries to a CSV file.
+def convert_csv_to_json(filename):
+    """Function to convert CSV to JSON"""
 
-    Args:
-        data (list): A list of dictionaries.
-        filename (str): The name of the CSV file.
-
-    Returns:
-        bool: True if successful, False otherwise.
-    """
     try:
-        if not data or not isinstance(data, list):
-            return False
+        # Reading the csv file
+        with open(filename, 'r') as file:
+            reader = csv.DictReader(file)
 
-        # Lüğətin açarlarını (key) sütun adları kimi götürürük
-        fieldnames = data[0].keys()
+            # Changing content to list
+            data = list(reader)
 
-        with open(filename, mode='w', encoding='utf-8', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-            writer.writeheader()  # Sütun adlarını yazır
-            writer.writerows(data)  # Bütün sətirləri yazır
-        return True
-    except Exception:
+        # Writing content as JSON to the file
+        json_filename = 'data.json'
+        with open(json_filename, 'w') as file:
+            json.dump(data, file, indent=4)
+            return True
+
+    # Exception handling
+    except Exception as e:
+        print("An error occurred:", e)
         return False
+
+
+csv_file = "data.csv"
+convert_csv_to_json(csv_file)
+print(f"Data from {csv_file} has been converted to data.json")
+
