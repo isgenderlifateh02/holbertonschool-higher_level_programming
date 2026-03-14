@@ -1,10 +1,19 @@
 #!/usr/bin/python3
-"""Module containing append_file function"""
+"""
+This module contains a function that returns the JSON
+representation of an object (string).
+"""
+import json
 
 
-def append_write(filename="", text=""):
-    """The append_file function"""
+def to_json_string(my_obj):
+    """
+    Returns the JSON representation of an object (string).
 
-    # Opening and appending to the file
-    with open(filename, 'a', encoding='UTF-8') as f:
-        return f.write(text)
+    Args:
+        my_obj: The object to be serialized.
+
+    Returns:
+        str: JSON string representation of my_obj.
+    """
+    return json.dumps(my_obj)
