@@ -1,49 +1,33 @@
 #!/usr/bin/python3
 """
-This module provides functions for XML serialization and deserialization.
-It allows converting a Python dictionary into an XML file and back.
+This module contains a function to convert a list of dictionaries
+into a CSV file and vice versa.
 """
-import xml.etree.ElementTree as ET
+import csv
 
 
-def serialize_to_xml(dictionary, filename):
+def write_data_to_csv(data, filename):
     """
-    Serializes a Python dictionary to an XML file.
-
-    The function creates a root element named 'data' and adds each
-    dictionary key-value pair as a sub-element.
+    Writes a list of dictionaries to a CSV file.
 
     Args:
-        dictionary (dict): The dictionary containing data to serialize.
-        filename (str): The name of the output XML file.
-    """
-    root = ET.Element("data")
-
-    for key, value in dictionary.items():
-        child = ET.SubElement(root, key)
-        child.text = str(value)
-
-    tree = ET.ElementTree(root)
-    tree.write(filename, encoding="utf-8", xml_declaration=True)
-
-
-def deserialize_from_xml(filename):
-    """
-    Deserializes an XML file back into a Python dictionary.
-
-    The function parses the XML file, iterates through the children
-    of the root element, and reconstructs the dictionary.
-
-    Args:
-        filename (str): The name of the XML file to read.
+        data (list): A list of dictionaries.
+        filename (str): The name of the CSV file.
 
     Returns:
-        dict: A dictionary representation of the XML data, or None if error.
+        bool: True if successful, False otherwise.
     """
     try:
-        tree = ET.parse(filename)
-        root = tree.getroot()
+        if not data or not isinstance(data, list):
+            return False
 
-        return {child.tag: child.text for child in root}
+        # Lüğətin açarlarını (key) sütun adları kimi götürürük
+        fieldnames = data[0].keys()
+
+        with open(filename, mode='w', encoding='utf-8', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()  # Sütun adlarını yazır
+            writer.writerows(data)  # Bütün sətirləri yazır
+        return True
     except Exception:
-        return None
+        return False
