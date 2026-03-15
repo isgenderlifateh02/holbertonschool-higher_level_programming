@@ -46,11 +46,11 @@ class SimpleAPIHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(info).encode("utf-8"))
 
         else:
-            # Xətanın həlli buradadır: Mətni "404 Not Found" olaraq dəyişirik
+            # DİQQƏT: Əgər "404 Not Found" keçmədisə, mətni buna çeviririk:
             self.send_response(404)
             self.send_header("Content-type", "text/plain")
             self.end_headers()
-            self.wfile.write(b"404 Not Found")
+            self.wfile.write(b"Endpoint not found")
 
 
 def run_server():
