@@ -12,13 +12,13 @@ users = {}
 
 @app.route("/")
 def home():
-    """Root endpoint."""
+    """Root endpoint: Welcome message."""
     return "Welcome to the Flask API!"
 
 
 @app.route("/data")
 def get_data():
-    """Returns a list of all usernames."""
+    """Returns a list of all usernames stored in the API."""
     return jsonify(list(users.keys()))
 
 
@@ -30,7 +30,7 @@ def status():
 
 @app.route("/users/<username>")
 def get_user(username):
-    """Returns the full user object for a given username."""
+    """Returns the full object for a specific username."""
     user = users.get(username)
     if user:
         return jsonify(user)
@@ -39,26 +39,30 @@ def get_user(username):
 
 @app.route("/add_user", methods=["POST"])
 def add_user():
-    """Adds a new user to the users dictionary."""
-    data = request.get_json()
-
-    # Check if data is valid JSON
+    """
+    Adds a new user to the storage.
+    Handles JSON validation, missing fields, and duplicates.
+    """
+    # 1. JSON-un mövcudluğunu və doğruluğunu yoxla
+    data = request.get_json(silent=True)
     if data is None:
         return jsonify({"error": "Invalid JSON"}), 400
 
+    # 2. Username sahəsini yoxla
     username = data.get("username")
-
-    # Check if username is provided
     if not username:
         return jsonify({"error": "Username is required"}), 400
 
-    # Check if username already exists
+    # 3. Dublikat istifadəçi yoxlaması (409 Conflict)
     if username in users:
-        return jsonify({"error": "User already exists"}), 400
+        return jsonify({"error": "Username already exists"}), 409
 
-    # Add user and return confirmation
+    # 4. İstifadəçini əlavə et və 201 Created qaytar
     users[username] = data
-    return jsonify({"message": "User added", "user": data}), 201
+    return jsonify({
+        "message": "User added",
+        "user": data
+    }), 201
 
 
 if __name__ == "__main__":
