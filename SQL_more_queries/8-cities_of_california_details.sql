@@ -1,3 +1,3 @@
--- Lists all cities of California in the database hbtn_0d_usa
--- Results are sorted by id in ascending direction
+-- Lists California cities in the database
+-- Results are id sorted
 SELECT id, name FROM cities WHERE state_id = (SELECT id FROM states WHERE name = 'California') ORDER BY id ASC;
